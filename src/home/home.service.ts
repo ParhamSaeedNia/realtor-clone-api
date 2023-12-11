@@ -75,24 +75,12 @@ export class HomeService {
   }
   async getHomeById(id: number) {
     const home = await this.prismaService.home.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
       select: {
         ...homeSelect,
         land_size: true,
-        images: {
-          select: {
-            url: true,
-          },
-        },
-        realtor: {
-          select: {
-            name: true,
-            email: true,
-            phone: true,
-          },
-        },
+        images: { select: { url: true } },
+        realtor: { select: { name: true, email: true, phone: true } },
       },
     });
 
@@ -141,9 +129,7 @@ export class HomeService {
 
   async updateHomeById(id: number, data: UpdateHomeParams) {
     const home = await this.prismaService.home.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
     });
 
     if (!home) {
